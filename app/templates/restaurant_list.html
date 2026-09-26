@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - Restaurants</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>🏬 Restaurants</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+{% if restaurants %}
+    {% for r in restaurants %}
+    <a href="{% url 'restaurant_menu' r.id %}" class="swiggy-restaurant-card">
+        <div class="swiggy-restaurant-icon">🏩</div>
+        <div class="swiggy-restaurant-info">
+            <h3>{{ r.name }}</h3>
+            <p>📍 {{ r.location }}</p>
+        </div>
+    </a>
+    {% endfor %}
+{% else %}
+    <div class="swiggy-empty">
+        <h2>No Restaurants Found</h2>
+    </div>
+{% endif %}
+
+</div>
+
+<div class="swiggy-bottom-nav">
+    <a href="{% url 'home' %}" class="swiggy-nav-item"><span>🏠</span>Home</a>
+    <a href="{% url 'restaurant_list' %}" class="swiggy-nav-item active"><span>🏩</span>Restaurants</a>
+    <a href="{% url 'cart' %}" class="swiggy-nav-item"><span>🛒</span>Cart</a>
+    <a href="{% url 'my_orders' %}" class="swiggy-nav-item"><span>📦</span>Orders</a>
+    <a href="{% url 'logout' %}" class="swiggy-nav-item"><span>🚪</span>Logout</a>
+</div>
+
+</body>
+</html>

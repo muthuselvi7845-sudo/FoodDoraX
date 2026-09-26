@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - My Addresses</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>📍 My Addresses</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+{% if addresses %}
+    {% for addr in addresses %}
+    <div class="swiggy-order-card payment-card">
+        <div class="swiggy-order-header">
+            <h3>{{ addr.label }} {% if addr.is_default %}<span class="swiggy-status placed">Selected</span>{% endif %}</h3>
+        </div>
+        <p class="address-desc">{{ addr.full_address }}</p>
+
+        {% if not addr.is_default %}
+            <a href="{% url 'select_address' addr.id %}?next={{ next_url }}" class="swiggy-btn-filled address-use-btn">
+                Use This Address
+            </a>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="swiggy-empty">
+        <h2>No Saved Addresses</h2>
+    </div>
+{% endif %}
+
+<div class="payment-card">
+    <a href="{% url 'add_address' %}?next={{ next_url }}" class="swiggy-btn-outline add-address-link">
+        ➕ Add New Address
+    </a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - Add Address</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>📍 Add Delivery Address</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+<div class="swiggy-order-card payment-card">
+
+    <button type="button" onclick="useCurrentLocation()" class="swiggy-btn-outline location-btn">
+        📍 Use Current Location
+    </button>
+
+    <p id="location-status" class="location-status-text"></p>
+
+    <form method="POST" action="{% url 'add_address' %}?next={{ next_url }}">
+        {% csrf_token %}
+
+        <label class="address-label">Label</label>
+        <select name="label" class="pay-input">
+            <option value="Home">Home</option>
+            <option value="Work">Work</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label class="address-label address-textarea">Full Address</label>
+        <textarea id="full_address" name="full_address" class="pay-input" rows="4" placeholder="House no, Street, Area, City, Pincode" required></textarea>
+
+        <button type="submit" class="swiggy-btn-filled address-save-btn">
+            Save Address
+        </button>
+    </form>
+
+</div>
+
+</div>
+
+<script>
+function useCurrentLocation() {
+    const statusEl = document.getElementById('location-status');
+
+    if (!navigator.geolocation) {
+        statusEl.textContent = "❌ Geolocation not supported on this browser.";
+        return;
+    }
+
+    statusEl.textContent = "📡 Detecting your location...";
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.display_name) {
+                    document.getElementById('full_address').value = data.display_name;
+                    statusEl.textContent = "✅ Location detected successfully!";
+                } else {
+                    statusEl.textContent = "⚠️ Could not detect address. Please type manually.";
+                }
+            })
+            .catch(() => {
+                statusEl.textContent = "⚠️ Error fetching address. Please type manually.";
+            });
+
+    }, function(error) {
+        if (error.code === error.PERMISSION_DENIED) {
+            statusEl.textContent = "❌ Location permission denied. Please allow location access.";
+        } else {
+            statusEl.textContent = "❌ Unable to retrieve your location.";
+        }
+    });
+}
+</script>
+
+</body>
+</html>

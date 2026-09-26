@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - Payment</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <h1>💳 Complete Your Payment</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+<div class="swiggy-order-card payment-card payment-summary">
+    <h3>Order #{{ order.id }}</h3>
+    <p>Total Amount: ₹{{ order.total }}</p>
+</div>
+
+<div class="swiggy-order-card payment-card">
+
+    <div class="pay-tabs-row">
+        <div class="pay-tab active" onclick="showTab(event, 'card')">💳 Card</div>
+        <div class="pay-tab" onclick="showTab(event, 'upi')">📱 UPI</div>
+        <div class="pay-tab" onclick="showTab(event, 'netbanking')">🏦 Netbanking</div>
+    </div>
+
+    <!-- CARD PANEL -->
+    <div id="card-panel" class="pay-panel active">
+        <form id="card-form" method="POST" action="{% url 'confirm_demo_payment' order.id %}" onsubmit="return handleSubmit(event, validateCard());">
+            {% csrf_token %}
+
+            <label>Card Number</label>
+            <input type="text" id="card-number" class="pay-input" placeholder="1234 5678 9012 3456" maxlength="19">
+            <p id="card-error" class="dark-field-error">Card number must be exactly 16 digits</p>
+
+            <div class="pay-input-row">
+                <div>
+                    <label>Expiry (MM/YY)</label>
+                    <input type="text" id="card-expiry" class="pay-input" placeholder="12/30" maxlength="5">
+                </div>
+                <div>
+                    <label>CVV</label>
+                    <input type="text" id="card-cvv" class="pay-input" placeholder="123" maxlength="3">
+                </div>
+            </div>
+            <p id="expiry-error" class="dark-field-error">Enter expiry and CVV</p>
+
+            <label>Cardholder Name</label>
+            <input type="text" id="card-name" class="pay-input" placeholder="Your Name">
+            <p id="name-error" class="dark-field-error">Enter cardholder name</p>
+
+            <button type="submit" class="swiggy-btn-filled pay-submit-btn">
+                Pay ₹{{ order.total }}
+            </button>
+        </form>
+    </div>
+
+    <!-- UPI PANEL -->
+    <div id="upi-panel" class="pay-panel">
+
+        <div class="qr-box">
+            <span style="font-size:50px;">📱</span>
+            <span style="font-size:11px; color:#999;">Scan QR to Pay</span>
+        </div>
+        <p class="qr-label">Scan with any UPI app (GPay, PhonePe, Paytm)</p>
+
+        <div class="upi-divider">OR</div>
+
+        <form id="upi-form" method="POST" action="{% url 'confirm_demo_payment' order.id %}" onsubmit="return handleSubmit(event, validateUPI());">
+            {% csrf_token %}
+
+            <label>Phone Number linked to UPI</label>
+            <input type="text" id="upi-phone" class="pay-input" placeholder="9876543210" maxlength="10">
+            <p id="upi-phone-error" class="dark-field-error">Enter a valid 10-digit phone number</p>
+
+            <label>UPI ID</label>
+            <input type="text" id="upi-id" class="pay-input" placeholder="yourname@upi">
+            <p id="upi-error" class="dark-field-error">Enter a valid UPI ID (e.g. name@bank)</p>
+
+            <button type="submit" class="swiggy-btn-filled pay-submit-btn">
+                Pay ₹{{ order.total }} via UPI
+            </button>
+        </form>
+    </div>
+
+    <!-- NETBANKING PANEL -->
+    <div id="netbanking-panel" class="pay-panel">
+        <form id="netbanking-form" method="POST" action="{% url 'confirm_demo_payment' order.id %}" onsubmit="return handleSubmit(event, validateNetbanking());">
+            {% csrf_token %}
+
+            <label>Select Your Bank</label>
+            <select class="pay-input" required>
+                <option value="" disabled selected>Choose a bank</option>
+                <option>State Bank of India</option>
+                <option>HDFC Bank</option>
+                <option>ICICI Bank</option>
+                <option>Axis Bank</option>
+                <option>Punjab National Bank</option>
+                <option>Canara Bank</option>
+            </select>
+
+            <label>Account Number</label>
+            <input type="text" id="account-number" class="pay-input" placeholder="1234567890123456">
+            <p id="account-error" class="dark-field-error">Enter a valid account number</p>
+
+            <label>IFSC Code</label>
+            <input type="text" id="ifsc-code" class="pay-input" placeholder="SBIN0001234" maxlength="11" style="text-transform:uppercase;">
+            <p id="ifsc-error" class="dark-field-error">Enter a valid IFSC code (e.g. SBIN0001234)</p>
+
+            <button type="submit" class="swiggy-btn-filled pay-submit-btn">
+                Pay ₹{{ order.total }} via Netbanking
+            </button>
+        </form>
+    </div>
+
+    <p class="pay-footer-note">
+        🔒 This is a demo payment page for project demonstration purposes.
+    </p>
+
+</div>
+
+</div>
+
+<div class="processing-overlay" id="processing-overlay">
+    <div class="processing-box">
+        <div class="spinner"></div>
+        <p class="processing-text">Processing your payment...</p>
+        <p class="processing-subtext">Please do not close this window</p>
+    </div>
+</div>
+
+<script>
+function showTab(evt, tab) {
+    document.querySelectorAll('.pay-tab').forEach(function(t) {
+        t.classList.remove('active');
+    });
+    document.querySelectorAll('.pay-panel').forEach(function(p) {
+        p.classList.remove('active');
+    });
+
+    evt.currentTarget.classList.add('active');
+    document.getElementById(tab + '-panel').classList.add('active');
+}
+
+function validateCard() {
+    let cardNumber = document.getElementById('card-number').value.replace(/\s/g, '');
+    let expiry = document.getElementById('card-expiry').value.trim();
+    let cvv = document.getElementById('card-cvv').value.trim();
+    let name = document.getElementById('card-name').value.trim();
+
+    let valid = true;
+
+    if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+        document.getElementById('card-error').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('card-error').style.display = 'none';
+    }
+
+    if (expiry.length < 4 || cvv.length !== 3) {
+        document.getElementById('expiry-error').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('expiry-error').style.display = 'none';
+    }
+
+    if (name.length === 0) {
+        document.getElementById('name-error').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('name-error').style.display = 'none';
+    }
+
+    return valid;
+}
+
+function validateUPI() {
+    let phone = document.getElementById('upi-phone').value.trim();
+    let upi = document.getElementById('upi-id').value.trim();
+
+    let valid = true;
+
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+        document.getElementById('upi-phone-error').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('upi-phone-error').style.display = 'none';
+    }
+
+    if (!/^[\w.\-]+@[\w]+$/.test(upi)) {
+        document.getElementById('upi-error').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('upi-error').style.display = 'none';
+    }
+
+    return valid;
+}
+
+function validateNetbanking() {
+    let account = document.getElementById('account-number').value.trim();
+    let ifsc = document.getElementById('ifsc-code').value.trim().toUpperCase();
+
+    let valid = true;
+
+    if (account.length < 9 || account.length > 18 || isNaN(account)) {
+        document.getElementById('account-error').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('account-error').style.display = 'none';
+    }
+
+    if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc)) {
+        document.getElementById('ifsc-error').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('ifsc-error').style.display = 'none';
+    }
+
+    return valid;
+}
+
+function handleSubmit(evt, isValid) {
+    if (!isValid) {
+        return false;
+    }
+    evt.preventDefault();
+    document.getElementById('processing-overlay').classList.add('active');
+    setTimeout(function() {
+        evt.target.submit();
+    }, 1500);
+    return false;
+}
+</script>
+
+</body>
+</html>

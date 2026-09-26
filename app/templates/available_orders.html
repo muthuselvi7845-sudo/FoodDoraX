@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - Available Orders</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>📋 Available Orders</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+{% if orders %}
+
+    {% for o in orders %}
+
+    <div class="swiggy-order-card">
+
+        <div class="swiggy-order-header">
+            <h3>Order #FD{% now "Y" %}-{{ o.id|stringformat:"03d" }}</h3>
+            <span class="swiggy-status placed">Placed</span>
+        </div>
+
+        <hr>
+
+        {% for oi in o.order_items.all %}
+            <div class="swiggy-food-row">
+                <span>{{ oi.food.name }} × {{ oi.quantity }}</span>
+                <span>₹{{ oi.subtotal }}</span>
+            </div>
+        {% endfor %}
+
+        <div class="swiggy-total">
+            <b>Total</b>
+            <b>₹{{ o.total }}</b>
+        </div>
+
+        <a href="{% url 'accept_order' o.id %}" class="swiggy-btn-filled">
+            Accept This Order
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+    <div class="swiggy-empty">
+        <h2>📭 No Orders Available</h2>
+        <p>Check back soon for new orders.</p>
+    </div>
+{% endif %}
+
+</div>
+
+<div class="swiggy-bottom-nav">
+    <a href="{% url 'home' %}" class="swiggy-nav-item"><span>🏠</span>Home</a>
+    <a href="{% url 'available_orders' %}" class="swiggy-nav-item active"><span>📋</span>Available</a>
+    <a href="{% url 'delivery_orders' %}" class="swiggy-nav-item"><span>🚚</span>Deliveries</a>
+    <a href="{% url 'logout' %}" class="swiggy-nav-item"><span>🚪</span>Logout</a>
+</div>
+
+</body>
+</html>

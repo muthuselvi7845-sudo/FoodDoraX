@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="dark-theme swiggy-body">
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="location-row">
+        <a href="{% url 'address_list' %}?next=/home/" style="text-decoration:none;">
+            <span class="location-label">
+                📍 {% if default_address %}{{ default_address.label }}{% else %}Add Address{% endif %} ▾
+            </span>
+        </a>
+        <span class="username-circle">{{ user.username|slice:":1"|upper }}</span>
+    </div>
+    <a href="{% url 'address_list' %}?next=/home/" style="text-decoration:none; color:inherit;">
+        <div class="address-text">
+            {% if default_address %}{{ default_address.full_address|truncatechars:40 }}{% else %}Tap to add delivery address{% endif %}
+        </div>
+    </a>
+
+    <div class="swiggy-tabs">
+        <a href="{% url 'home' %}" class="swiggy-tab active">
+            <span class="swiggy-tab-icon">🍔</span>Food
+        </a>
+        <a href="{% url 'restaurant_list' %}" class="swiggy-tab">
+            <span class="swiggy-tab-icon">🏩</span>Restaurants
+        </a>
+        <a href="{% url 'my_orders' %}" class="swiggy-tab">
+            <span class="swiggy-tab-icon">📦</span>Orders
+        </a>
+        <a href="{% url 'cart' %}" class="swiggy-tab">
+            <span class="swiggy-tab-icon">🛒</span>Cart
+        </a>
+    </div>
+</div>
+
+<!-- SEARCH ROW -->
+<div class="swiggy-search-row">
+    <form method="GET" action="{% url 'home' %}" class="swiggy-search-bar">
+        <span>🔍</span>
+        <input type="text" name="q" placeholder="Search for food..." value="{{ query }}">
+    </form>
+    {% if veg_only == 'true' %}
+    <a href="?{% if query %}q={{ query }}&{% endif %}" class="veg-toggle" style="text-decoration:none;">🟢 VEG ✓</a>
+    {% else %}
+    <a href="?{% if query %}q={{ query }}&{% endif %}veg=true" class="veg-toggle" style="text-decoration:none;">⚪ VEG</a>
+    {% endif %}
+</div>
+
+<!-- FILTER PILLS -->
+<div class="swiggy-filters">
+    <span class="active">ALL</span>
+    <span>OFFERS</span>
+    <span>TOP RATED</span>
+    <span>FAST DELIVERY</span>
+</div>
+<!-- WELCOME BANNER -->
+<div class="swiggy-welcome">
+    <h2>Welcome, <span>foodie!</span></h2>
+    <div class="swiggy-promo-grid">
+        <div class="swiggy-promo-box promo-with-img" style="grid-row: span 2; height:190px;">
+            <img src="https://content.jdmagicbox.com/v2/comp/madurai/r8/0452px452.x452.230808164709.f2r8/catalogue/salem-rr-biriyani-kamarajar-salai-madurai-biryani-restaurants-a5i7zvwt8b.jpg" alt="Biryani" style="width:100%; height:70%; border-radius:14px;">
+            <div class="promo-overlay" style="position:absolute; bottom:0; left:0; width:100%; background:linear-gradient(0deg, rgba(0,0,0,0.7), transparent); padding:14px;">
+                <b>Salem RR Biryani — BOGO</b>
+                <span>Buy One Get One Free above ₹500</span>
+            </div>
+        </div>
+        <div class="swiggy-promo-box promo-with-img">
+            <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_720,h_420,c_fill/RX_THUMBNAIL/IMAGES/VENDOR/2026/7/1/7af7d820-382d-4075-8bde-66ffb46353fe_81231.JPG"
+             class="promo-bg-img" alt="KFC" >
+            <div class="promo-overlay">
+                <b>KFC Store</b>
+                <span>20% OFF above ₹300</span>
+            </div>
+        </div>
+        <div class="swiggy-promo-box promo-with-img">
+            <img src="https://img.magnific.com/free-vector/free-delivery-logo-with-bike-man-courier_1308-49835.jpg?semt=ais_hybrid&w=740&q=80" class="promo-bg-img" alt="Delivery">
+            <div class="promo-overlay">
+                <b>Free Delivery</b>
+                <span>With FoodDoraX One</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SORT PILLS -->
+<div class="swiggy-sort-row">
+    <span class="swiggy-sort-pill highlight">MIN ₹100 OFF</span>
+    <span class="swiggy-sort-pill">FAST DELIVERY</span>
+    <span class="swiggy-sort-pill">RATING 4.0+</span>
+    <span class="swiggy-sort-pill">PURE VEG</span>
+</div>
+
+<!-- FOOD GRID -->
+<div class="swiggy-food-grid">
+    {% for f in foods %}
+    <div class="swiggy-food-card">
+        <a href="{% url 'food_detail' f.id %}" style="text-decoration:none; color:inherit;">
+            <div class="swiggy-food-img-wrap">
+                {% if f.image_url %}
+                    <img src="{{ f.image_url }}" alt="{{ f.name }}" class="swiggy-food-img">
+                {% else %}
+                    <div class="swiggy-food-img" style="background:#eee; display:flex; align-items:center; justify-content:center;">🍽</div>
+                {% endif %}
+                <span class="swiggy-heart">🤍</span>
+                <div class="swiggy-discount-badge">₹{{ f.price }}</div>
+            </div>
+            <div class="swiggy-food-name">{{ f.name }}</div>
+            <div class="swiggy-food-meta">
+                {% if f.average_rating %}
+                    <span class="rating">⭐ {{ f.average_rating }}</span> • {{ f.review_count }} reviews
+                {% else %}
+                    New
+                {% endif %}
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- BOTTOM NAV BAR -->
+<div class="swiggy-bottom-nav">
+    <a href="{% url 'home' %}" class="swiggy-nav-item active">
+        <span>🏠</span>Home
+    </a>
+
+    {% if user.profile.role == "DELIVERY" %}
+        <a href="{% url 'available_orders' %}" class="swiggy-nav-item">
+            <span>📋</span>Available
+        </a>
+        <a href="{% url 'delivery_orders' %}" class="swiggy-nav-item">
+            <span>🚚</span>Deliveries
+        </a>
+    {% else %}
+        <a href="{% url 'restaurant_list' %}" class="swiggy-nav-item">
+            <span>🏩</span>Restaurants
+        </a>
+        <a href="{% url 'cart' %}" class="swiggy-nav-item">
+            <span>🛒</span>Cart
+        </a>
+        <a href="{% url 'my_orders' %}" class="swiggy-nav-item">
+            <span>📦</span>Orders
+        </a>
+    {% endif %}
+
+    <a href="{% url 'logout' %}" class="swiggy-nav-item">
+        <span>🚪</span>Logout
+    </a>
+</div>
+
+</body>
+</html>

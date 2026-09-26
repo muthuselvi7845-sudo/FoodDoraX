@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - Cart</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>🛒 My Cart</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+{% if items %}
+
+    {% for item in items %}
+    <div class="swiggy-cart-item">
+        <h3>{{ item.food.name }}</h3>
+        <p>Price: ₹{{ item.food.price }}</p>
+
+        <div class="swiggy-qty-controls">
+            <a href="{% url 'decrease_quantity' item.id %}" class="swiggy-qty-btn">−</a>
+            <span class="swiggy-qty-number">{{ item.quantity }}</span>
+            <a href="{% url 'increase_quantity' item.id %}" class="swiggy-qty-btn">+</a>
+        </div>
+
+        <p><b style="color:#a3134b;">Subtotal: ₹{{ item.subtotal }}</b></p>
+
+        <a href="{% url 'remove_from_cart' item.id %}" class="swiggy-remove-link">🗑 Remove</a>
+    </div>
+    {% endfor %}
+
+    <div class="swiggy-cart-total">
+        <h2>Total: ₹{{ total }}</h2>
+        <a href="{% url 'checkout' %}" class="swiggy-btn-filled" style="padding:12px 26px;">Checkout</a>
+    </div>
+
+{% else %}
+    <div class="swiggy-empty">
+        <h2>Your Cart is Empty</h2>
+        <a href="{% url 'home' %}" class="swiggy-btn-filled" style="margin-top:10px;">Browse Food</a>
+    </div>
+{% endif %}
+
+</div>
+
+<div class="swiggy-bottom-nav">
+    <a href="{% url 'home' %}" class="swiggy-nav-item"><span>🏠</span>Home</a>
+    <a href="{% url 'restaurant_list' %}" class="swiggy-nav-item"><span>🏩</span>Restaurants</a>
+    <a href="{% url 'cart' %}" class="swiggy-nav-item active"><span>🛒</span>Cart</a>
+    <a href="{% url 'my_orders' %}" class="swiggy-nav-item"><span>📦</span>Orders</a>
+    <a href="{% url 'logout' %}" class="swiggy-nav-item"><span>🚪</span>Logout</a>
+</div>
+
+</body>
+</html>

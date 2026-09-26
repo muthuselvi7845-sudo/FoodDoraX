@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ food.name }} - FoodDoraX</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>{{ food.name }}</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+<div class="swiggy-order-card detail-card">
+
+    {% if food.image_url %}
+        <img src="{{ food.image_url }}" alt="{{ food.name }}" class="detail-img">
+    {% endif %}
+
+    <h2 class="detail-title">{{ food.name }}</h2>
+    <p class="detail-price">₹{{ food.price }}</p>
+
+    {% if food.average_rating %}
+        <p class="detail-rating">⭐ {{ food.average_rating }} / 5 ({{ food.review_count }} reviews)</p>
+    {% else %}
+        <p class="detail-no-rating">No reviews yet</p>
+    {% endif %}
+
+    <div class="detail-actions">
+        <a class="swiggy-btn-outline" href="{% url 'add_to_cart' food.id %}">🛒 Add to Cart</a>
+        <a class="swiggy-btn-filled" href="{% url 'orders' food.id %}">⚡ Buy Now</a>
+    </div>
+
+</div>
+
+{% if user.is_authenticated %}
+<div class="swiggy-order-card detail-card">
+    <h3 class="detail-heading">{% if user_review %}Update Your Review{% else %}Write a Review{% endif %}</h3>
+
+    <form method="POST" action="{% url 'add_review' food.id %}">
+        {% csrf_token %}
+
+        <label class="detail-heading">Rating</label><br>
+        <select name="rating" required class="review-select">
+            <option value="" disabled {% if not user_review %}selected{% endif %}>Select rating</option>
+            <option value="5" {% if user_review.rating == 5 %}selected{% endif %}>5 - Excellent</option>
+            <option value="4" {% if user_review.rating == 4 %}selected{% endif %}>4 - Very Good</option>
+            <option value="3" {% if user_review.rating == 3 %}selected{% endif %}>3 - Good</option>
+            <option value="2" {% if user_review.rating == 2 %}selected{% endif %}>2 - Fair</option>
+            <option value="1" {% if user_review.rating == 1 %}selected{% endif %}>1 - Poor</option>
+        </select>
+
+        <label class="detail-heading">Comment (optional)</label>
+        <textarea name="comment" rows="3" class="review-textarea">{% if user_review %}{{ user_review.comment }}{% endif %}</textarea>
+
+        <button type="submit" class="swiggy-btn-filled review-submit-btn">
+            {% if user_review %}Update Review{% else %}Submit Review{% endif %}
+        </button>
+    </form>
+</div>
+{% endif %}
+
+<div class="swiggy-order-card detail-card">
+    <h3 class="detail-heading">🍽 All Reviews ({{ food.review_count }})</h3>
+
+    {% for r in reviews %}
+        <div class="review-item">
+            <b>{{ r.user.username }}</b> — ⭐ {{ r.rating }}/5
+            {% if r.comment %}<p>{{ r.comment }}</p>{% endif %}
+        </div>
+    {% empty %}
+        <p class="no-reviews">No reviews yet. Be the first to review!</p>
+    {% endfor %}
+</div>
+
+</div>
+
+</body>
+</html>

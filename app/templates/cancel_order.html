@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - Cancel Order</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'my_orders' %}">←</a>
+    <h1>❌ Cancel Order #{{ order.id }}</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+<div class="swiggy-order-card payment-card">
+
+    <p class="cancel-total">Total: ₹{{ order.total }}</p>
+
+    {% if order.payment_method == "COD" %}
+        <p class="cancel-method-cod"><b>Payment Method:</b> Cash on Delivery (no refund applicable)</p>
+    {% else %}
+        <p class="cancel-method-online"><b>Payment Method:</b> Online Payment (refund will be processed)</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label class="cancel-label"><b>Reason for cancellation:</b></label><br><br>
+
+        <select name="reason" required class="pay-input cancel-select">
+            <option value="" disabled selected>Select a reason</option>
+            <option value="Ordered by mistake">Ordered by mistake</option>
+            <option value="Delivery taking too long">Delivery taking too long</option>
+            <option value="Changed my mind">Changed my mind</option>
+            <option value="Found a better price elsewhere">Found a better price elsewhere</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <button type="submit" class="swiggy-btn-outline cancel-confirm-btn">
+            Confirm Cancellation
+        </button>
+    </form>
+
+</div>
+
+</div>
+
+</body>
+</html>

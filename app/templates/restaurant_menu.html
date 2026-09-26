@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ restaurant.name }} - FoodDoraX</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'restaurant_list' %}">←</a>
+    <h1>{{ restaurant.name }}</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+    <p style="color:#888; margin-bottom:16px;">📍 {{ restaurant.location }}</p>
+
+    <div class="swiggy-food-grid">
+        {% for f in foods %}
+        <div class="swiggy-food-card">
+            <a href="{% url 'food_detail' f.id %}" style="text-decoration:none; color:inherit;">
+                <div class="swiggy-food-img-wrap">
+                    {% if f.image_url %}
+                        <img src="{{ f.image_url }}" alt="{{ f.name }}" class="swiggy-food-img">
+                    {% else %}
+                        <div class="swiggy-food-img" style="background:#eee; display:flex; align-items:center; justify-content:center;">🍽</div>
+                    {% endif %}
+                    <div class="swiggy-discount-badge">₹{{ f.price }}</div>
+                </div>
+                <div class="swiggy-food-name">{{ f.name }}</div>
+                <div class="swiggy-food-meta">
+                    {% if f.average_rating %}
+                        <span class="rating">⭐ {{ f.average_rating }}</span> • {{ f.review_count }} reviews
+                    {% else %}
+                        New
+                    {% endif %}
+                </div>
+            </a>
+
+            <div style="display:flex; gap:8px; margin-top:8px;">
+                <a href="{% url 'add_to_cart' f.id %}" class="swiggy-btn-outline" style="flex:1; text-align:center; padding:8px;">🛒 Add</a>
+                <a href="{% url 'orders' f.id %}" class="swiggy-btn-filled" style="flex:1; text-align:center; padding:8px;">⚡ Buy Now</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<div class="swiggy-bottom-nav">
+    <a href="{% url 'home' %}" class="swiggy-nav-item"><span>🏠</span>Home</a>
+    <a href="{% url 'restaurant_list' %}" class="swiggy-nav-item active"><span>🏩</span>Restaurants</a>
+    <a href="{% url 'cart' %}" class="swiggy-nav-item"><span>🛒</span>Cart</a>
+    <a href="{% url 'my_orders' %}" class="swiggy-nav-item"><span>📦</span>Orders</a>
+    <a href="{% url 'logout' %}" class="swiggy-nav-item"><span>🚪</span>Logout</a>
+</div>
+
+</body>
+</html>

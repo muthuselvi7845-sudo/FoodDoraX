@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - My Orders</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>📦 My Orders</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+{% if orders %}
+
+    {% for o in orders %}
+    <div class="swiggy-order-card">
+
+        <div class="swiggy-order-header">
+            <h3>Order #FD{% now "Y" %}-{{ o.id|stringformat:"03d" }}</h3>
+            {% if o.status == "PLACED" and not o.is_paid and o.payment_method == "ONLINE" %}
+                <span class="swiggy-status pending">Awaiting Payment</span>
+            {% elif o.status == "PLACED" %}
+                <span class="swiggy-status placed">Placed</span>
+            {% elif o.status == "PACKING" %}
+                <span class="swiggy-status packing">Packing</span>
+            {% elif o.status == "OUT" %}
+                <span class="swiggy-status out">Out for Delivery</span>
+            {% elif o.status == "CANCELLED" %}
+                <span class="swiggy-status cancelled">Cancelled</span>
+            {% else %}
+                <span class="swiggy-status delivered">Delivered</span>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        {% for oi in o.order_items.all %}
+            <div class="swiggy-food-row">
+                <span>{{ oi.food.name }} × {{ oi.quantity }}</span>
+                <span>₹{{ oi.subtotal }}</span>
+            </div>
+        {% endfor %}
+
+        <div class="swiggy-total">
+            <b>Total</b>
+            <b>₹{{ o.total }}</b>
+        </div>
+
+        {% if o.payment_method == "COD" %}
+            <p class="swiggy-note-cod">💵 Cash on Delivery</p>
+        {% elif not o.is_paid %}
+            <p class="swiggy-note-unpaid">⚠️ Payment Pending</p>
+            <a href="{% url 'retry_payment' o.id %}" class="swiggy-btn-filled">Complete Payment</a>
+        {% else %}
+            <p class="swiggy-note-paid">✅ Paid Online</p>
+        {% endif %}
+
+        {% if o.status == "PLACED" or o.status == "PACKING" %}
+            <a href="{% url 'cancel_order' o.id %}" class="swiggy-btn-outline status-cancel-link">Cancel Order</a>
+        {% endif %}
+
+        {% if o.status == "CANCELLED" and o.cancel_reason %}
+            <p class="cancel-reason-note">Reason: {{ o.cancel_reason }}</p>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+{% else %}
+    <div class="swiggy-empty">
+        <h2>😔 No Orders Yet</h2>
+        <p>Order your favourite food now.</p>
+        <a href="{% url 'home' %}" class="swiggy-btn-filled" style="margin-top:10px;">Browse Food</a>
+    </div>
+{% endif %}
+
+</div>
+
+<div class="swiggy-bottom-nav">
+    <a href="{% url 'home' %}" class="swiggy-nav-item"><span>🏠</span>Home</a>
+    <a href="{% url 'restaurant_list' %}" class="swiggy-nav-item"><span>🏩</span>Restaurants</a>
+    <a href="{% url 'cart' %}" class="swiggy-nav-item"><span>🛒</span>Cart</a>
+    <a href="{% url 'my_orders' %}" class="swiggy-nav-item active"><span>📦</span>Orders</a>
+    <a href="{% url 'logout' %}" class="swiggy-nav-item"><span>🚪</span>Logout</a>
+</div>
+
+</body>
+</html>

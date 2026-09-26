@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - Choose Payment</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>💳 Choose Payment Method</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+<div class="swiggy-order-card payment-card payment-summary">
+    <h3>{{ food.name }}</h3>
+    <p>Total Amount: ₹{{ food.price }}</p>
+</div>
+
+<div class="swiggy-order-card payment-card">
+    <h3 class="pay-method-title">💳 Pay Online</h3>
+    <p class="pay-method-desc">Pay now via UPI, Card, or Netbanking.</p>
+    <a href="{% url 'buy_now_online' food.id %}" class="swiggy-btn-filled pay-method-btn">Pay Online</a>
+</div>
+
+<div class="swiggy-order-card payment-card">
+    <h3 class="pay-method-title">💵 Cash on Delivery</h3>
+    <p class="pay-method-desc">Pay in cash when your order arrives.</p>
+    <a href="{% url 'buy_now_cod' food.id %}" class="swiggy-btn-filled pay-method-btn">Place Order (COD)</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1080 @@
+
+/* ============================================
+   SWIGGY-STYLE PINK/MAROON THEME
+   ============================================ */
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.top-bar {
+    background: linear-gradient(160deg, #b41515, #fc0463);
+    padding: 16px 18px 0;
+}
+
+.location-label {
+    font-size: 19px;
+    font-weight: 800;
+    color: #fff;
+}
+.location-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.username-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #fbbf24;
+    color: #1f1f1f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.top-bar a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.top-bar .address-text {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+}
+.address-text {
+    margin-bottom: 12px;
+}
+
+/* TAB BAR */
+.swiggy-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 6px 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.swiggy-tabs::-webkit-scrollbar { display: none; }
+
+.swiggy-tab {
+    flex: 1;
+    min-width: 80px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 14px 14px 0 0;
+    text-align: center;
+    padding: 10px 8px 8px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.swiggy-tab.active {
+    background: #fdf1ea;
+    color: #7a1734;
+}
+
+.swiggy-tab-icon {
+    font-size: 26px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* SEARCH ROW */
+.swiggy-search-row {
+    display: flex;
+    gap: 10px;
+    padding: 14px 18px;
+    background: #fef2f5;
+}
+
+.swiggy-search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border-radius: 30px;
+    padding: 12px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.swiggy-search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+}
+
+.veg-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+}
+
+/* FILTER PILLS */
+.swiggy-filters {
+    display: flex;
+    gap: 18px;
+    padding: 0 18px 14px;
+    background: #fef2f5;
+    overflow-x: auto;
+    scrollbar-width: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: #888;
+}
+
+.swiggy-filters .active {
+    color: #7a1734;
+    border-bottom: 3px solid #7a1734;
+    padding-bottom: 6px;
+}
+
+/* WELCOME BANNER */
+.swiggy-welcome {
+    background: linear-gradient(160deg, #b41515, #fc0463);
+    margin: 0 14px 16px;
+    border-radius: 22px;
+    padding: 20px;
+}
+
+.swiggy-welcome h2 {
+    color: #fff;
+    font-size: 24px;
+    margin: 0 0 16px;
+}
+.swiggy-welcome h2 span {
+    color: #ffd166;
+    font-style: italic;
+}
+
+.swiggy-promo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 90px 90px;
+    gap: 10px;
+}
+
+.swiggy-promo-box {
+    background: rgba(0,0,0,0.2);
+    border-radius: 14px;
+    padding: 14px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    min-height: 80px;
+}
+
+.swiggy-promo-box b {
+    display: block;
+    font-size: 14px;
+    color: #ffd166;
+}
+
+.swiggy-promo-box span {
+    font-size: 12px;
+    opacity: 0.9;
+}
+/* ============================================
+   PROMO BOX WITH IMAGE
+   ============================================ */
+
+.promo-with-img {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    height: 90px;
+    border-radius: 14px;
+}
+
+.promo-bg-img {
+    width: 20%;
+    height: 120%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 14px 14px 0;
+}
+
+.promo-overlay {
+    position: relative;
+    padding: 12px;
+    z-index: 1;
+    width: 60%; 
+}
+
+
+.swiggy-sort-row {
+    display: flex;
+    gap: 10px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.swiggy-sort-row::-webkit-scrollbar { display: none; }
+
+.swiggy-sort-pill {
+    background: #f3f3f3;
+    border-radius: 20px;
+    padding: 9px 16px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+}
+.swiggy-sort-pill.highlight {
+    background: #fff3e0;
+    color: #d97706;
+}
+
+/* FOOD CARDS — Swiggy style */
+.swiggy-food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    padding: 0 18px 90px;
+}
+
+.swiggy-food-card {
+    position: relative;
+}
+
+.swiggy-food-img-wrap {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.swiggy-food-img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    display: block;
+}
+
+.swiggy-heart {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,0.85);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.swiggy-discount-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+}
+
+.swiggy-food-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin: 8px 0 2px;
+}
+
+.swiggy-food-meta {
+    font-size: 12px;
+    color: #666;
+}
+
+.swiggy-food-meta .rating {
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+body.dark-theme.swiggy-body {
+    background: #fef2f5;
+    color: #1f1f1f;
+}
+/* ============================================
+   SWIGGY PINK THEME — INNER PAGES
+   ============================================ */
+
+.swiggy-topbar {
+    background: linear-gradient(180deg, #3d0c1f, #7a1734);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.swiggy-topbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.swiggy-topbar h1 {
+    color: #fff;
+    font-size: 19px;
+    margin: 0;
+    font-weight: 700;
+}
+
+
+.swiggy-page-section {
+    background: #fef2f5;
+    padding: 20px;
+    padding-bottom: 90px;
+}
+
+/* Restaurant cards - pink theme */
+.swiggy-restaurant-card {
+    display: flex;
+    gap: 12px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 14px;
+    text-decoration: none;
+    color: inherit;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(231, 9, 139, 0.06);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.swiggy-restaurant-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #d81159, #a3134b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.swiggy-restaurant-info h3 {
+    margin: 0 0 3px;
+    color: #1f1f1f;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.swiggy-restaurant-info p {
+    margin: 0;
+    color: #888;
+    font-size: 12.5px;
+}
+
+/* Order cards - pink theme */
+.swiggy-order-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.swiggy-order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.swiggy-order-header h3 {
+    color: #1f1f1f;
+    font-size: 15px;
+    margin: 0;
+}
+
+.swiggy-order-card hr {
+    border: none;
+    border-top: 1px solid #f0e6e0;
+    margin: 10px 0;
+}
+
+.swiggy-food-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13.5px;
+    color: #555;
+}
+
+.swiggy-food-row span:last-child {
+    color: #1f1f1f;
+    font-weight: 600;
+}
+
+.swiggy-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    margin-top: 6px;
+    border-top: 1px dashed #e5d5cc;
+    color: #1f1f1f;
+    font-size: 15px;
+}
+
+/* Status badges - pink theme */
+.swiggy-status {
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+.swiggy-status.placed { background: #fce4ec; color: #ad1457; }
+.swiggy-status.pending { background: #fff3e0; color: #e65100; }
+.swiggy-status.packing { background: #e3f2fd; color: #1565c0; }
+.swiggy-status.out { background: #f3e5f5; color: #7b1fa2; }
+.swiggy-status.delivered { background: #e8f5e9; color: #2e7d32; }
+.swiggy-status.cancelled { background: #ffebee; color: #c62828; }
+
+.swiggy-note-paid { color: #2e7d32; font-size: 13px; font-weight: 600; margin: 10px 0 6px; }
+.swiggy-note-unpaid { color: #c62828; font-size: 13px; font-weight: 600; margin: 10px 0 6px; }
+.swiggy-note-cod { color: #e65100; font-size: 13px; font-weight: 600; margin: 10px 0 6px; }
+
+.swiggy-btn-filled {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13.5px;
+    text-decoration: none;
+    background: linear-gradient(135deg, #d81159, #a3134b);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.swiggy-btn-outline {
+    display: inline-block;
+    padding: 9px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13.5px;
+    text-decoration: none;
+    background: #fff;
+    color: #c62828;
+    border: 1.5px solid #ffcdd2;
+}
+
+.swiggy-empty {
+    text-align: center;
+    padding: 70px 20px;
+    color: #999;
+}
+.swiggy-empty h2 { color: #555; font-size: 20px; margin-bottom: 8px; }
+
+/* Cart page - pink theme */
+.swiggy-cart-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.swiggy-cart-item h3 {
+    color: #1f1f1f;
+    margin: 0 0 8px;
+}
+
+.swiggy-cart-item p {
+    color: #555;
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.swiggy-qty-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+}
+
+.swiggy-qty-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #d81159, #a3134b);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.swiggy-qty-number {
+    font-weight: 600;
+    color: #1f1f1f;
+    min-width: 20px;
+    text-align: center;
+}
+
+.swiggy-remove-link {
+    color: #c62828;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.swiggy-cart-total {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    margin-top: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.swiggy-cart-total h2 {
+    color: #1f1f1f;
+    margin: 0 0 12px;
+}
+
+/* Bottom nav - pink theme */
+.swiggy-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #f0e6e0;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 200;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+.swiggy-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #0c0c0c;
+    font-size: 11px;
+    font-weight: 600;
+    gap: 3px;
+}
+
+.swiggy-nav-item span {
+    font-size: 20px;
+    color: #999;
+}
+
+.swiggy-nav-item.active {
+    color: #a3134b;
+}
+
+.swiggy-nav-item.active span {
+    color: #a3134b;
+}
+/* ============================================
+   LOGIN / REGISTER PAGE — CLEAN CLASSES
+   ============================================ */
+
+.auth-body {
+    background: linear-gradient(180deg, #3d0c1f, #7a1734);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-box {
+    background: #fff;
+    padding: 40px 36px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+}
+
+.auth-box h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #a3134b;
+    margin-bottom: 6px;
+}
+
+.auth-box h2 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.auth-error {
+    color: #c62828;
+    background: #ffebee;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0;
+    border: 1.5px solid #eee;
+    border-radius: 10px;
+    font-size: 14.5px;
+    background: #fff;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 13px;
+    margin-top: 14px;
+    background: linear-gradient(135deg, #d81159, #a3134b);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.auth-footer {
+    margin-top: 18px;
+    font-size: 14px;
+    color: #999;
+}
+
+.auth-footer a {
+    color: #a3134b;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* ============================================
+   FOOD DETAIL PAGE — CLEAN CLASSES
+   ============================================ */
+
+.detail-card {
+    max-width: 500px;
+    margin: 0 auto 16px;
+}
+
+.detail-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 16px;
+}
+
+.detail-title {
+    color: #1f1f1f;
+    margin: 0 0 6px;
+}
+
+.detail-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #a3134b;
+    margin: 0 0 10px;
+}
+
+.detail-rating {
+    color: #e65100;
+}
+
+.detail-no-rating {
+    color: #999;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.detail-actions a {
+    flex: 1;
+    text-align: center;
+}
+
+.detail-heading {
+    color: #1f1f1f;
+}
+
+.review-select,
+.review-textarea {
+    width: 100%;
+    background: #fff;
+    color: #1f1f1f;
+    border: 1.5px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 6px 0;
+}
+
+.review-select {
+    max-width: 200px;
+}
+
+.review-submit-btn {
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.review-item {
+    border-bottom: 1px solid #f0e6e0;
+    padding: 14px 0;
+}
+
+.review-item b {
+    color: #1f1f1f;
+}
+
+.review-item p {
+    color: #777;
+    margin-top: 4px;
+}
+
+.no-reviews {
+    color: #999;
+}
+
+/* ============================================
+   PAYMENT PAGES — CLEAN CLASSES
+   ============================================ */
+
+.payment-card {
+    max-width: 500px;
+    margin: 0 auto 16px;
+}
+
+.payment-summary h3 {
+    color: #1f1f1f;
+}
+
+.payment-summary p {
+    color: #555;
+}
+
+.pay-method-title {
+    color: #1f1f1f;
+}
+
+.pay-method-desc {
+    color: #555;
+}
+
+.pay-method-btn {
+    margin-top: 8px;
+}
+
+.pay-tabs-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0e6e0;
+}
+
+.pay-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #999;
+    border-bottom: 3px solid transparent;
+}
+
+.pay-tab.active {
+    color: #a3134b;
+    border-bottom: 3px solid #a3134b;
+}
+
+.pay-panel {
+    display: none;
+}
+
+.pay-panel.active {
+    display: block;
+}
+
+.pay-input {
+    width: 100%;
+    background: #fff;
+    color: #1f1f1f;
+    border: 1.5px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 6px 0 4px;
+    font-size: 14px;
+}
+
+.pay-input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.pay-input-row > div {
+    flex: 1;
+}
+
+.pay-submit-btn {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 12px;
+}
+
+.pay-footer-note {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* ============================================
+   CANCEL ORDER PAGE — CLEAN CLASSES
+   ============================================ */
+
+.cancel-total {
+    color: #555;
+}
+
+.cancel-method-cod {
+    color:#d81159;
+}
+
+.cancel-method-online {
+    color: #1565c0;
+}
+
+.cancel-label {
+    color: #1f1f1f;
+}
+
+.cancel-select {
+    margin-bottom: 15px;
+}
+
+.cancel-confirm-btn {
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 11px;
+    background: #d81159;
+    color: #fff;
+}
+
+/* ============================================
+   MY ORDERS / DELIVERY PAGES — CLEAN CLASSES
+   ============================================ */
+
+.cancel-reason-note {
+    color: #c62828;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.status-cancel-link {
+    margin-top: 8px;
+}
+
+/* My Orders page inline color fixes */
+.order-info-text {
+    color: #ccc;
+}
+
+.status-action-btn {
+    margin-top: 12px;
+}
+
+/* ============================================
+   ADDRESS PAGES — CLEAN CLASSES
+   ============================================ */
+
+.address-desc {
+    color: #555;
+}
+
+.location-status-text {
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.location-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+.address-label {
+    color: #1f1f1f;
+}
+
+.address-textarea {
+    margin-top: 10px;
+    display: block;
+}
+
+.address-save-btn {
+    border: none;
+    cursor: pointer;
+    margin-top: 12px;
+    width: 100%;
+    padding: 12px;
+}
+
+.address-use-btn {
+    margin-top: 8px;
+}
+
+.add-address-link {
+    display: block;
+    text-align: center;
+    padding: 12px;
+}
+
+/* ============================================
+   PAYMENT FIELDS — QR/PHONE/BANK DETAILS
+   ============================================ */
+
+.qr-box {
+    width: 160px;
+    height: 160px;
+    background: #fff;
+    border: 2px dashed #ddd;
+    border-radius: 12px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.qr-box img {
+    width: 130px;
+    height: 130px;
+}
+
+.qr-label {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 16px;
+}
+
+.upi-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0;
+    color: #999;
+    font-size: 12px;
+}
+
+.upi-divider::before,
+.upi-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+/* ============================================
+   PAYMENT PROCESSING SPINNER
+   ============================================ */
+
+.processing-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+}
+
+.processing-overlay.active {
+    display: flex;
+}
+
+.processing-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px 40px;
+    text-align: center;
+}
+
+.spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid #f0e6e0;
+    border-top: 4px solid #a3134b;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.processing-text {
+    color: #1f1f1f;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.processing-subtext {
+    color: #999;
+    font-size: 12px;
+    margin-top: 4px;
+}

@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FoodDoraX - My Deliveries</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="swiggy-topbar">
+    <a href="{% url 'home' %}">←</a>
+    <h1>🚚 My Deliveries</h1>
+</div>
+
+<div class="swiggy-page-section">
+
+{% if orders %}
+
+    {% for o in orders %}
+
+    <div class="swiggy-order-card">
+
+        <div class="swiggy-order-header">
+            <h3>Order #FD{% now "Y" %}-{{ o.id|stringformat:"03d" }}</h3>
+            {% if o.status == "PLACED" %}
+                <span class="swiggy-status placed">Placed</span>
+            {% elif o.status == "PACKING" %}
+                <span class="swiggy-status packing">Packing</span>
+            {% elif o.status == "OUT" %}
+                <span class="swiggy-status out">Out for Delivery</span>
+            {% else %}
+                <span class="swiggy-status delivered">Delivered</span>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        {% for oi in o.order_items.all %}
+            <div class="swiggy-food-row">
+                <span>{{ oi.food.name }} × {{ oi.quantity }}</span>
+                <span>₹{{ oi.subtotal }}</span>
+            </div>
+        {% endfor %}
+
+        <div class="swiggy-total">
+            <b>Total</b>
+            <b>₹{{ o.total }}</b>
+        </div>
+
+        {% if o.status == "PACKING" %}
+            <a href="{% url 'advance_status' o.id %}" class="swiggy-btn-filled"
+               onclick="this.style.pointerEvents='none'; this.style.opacity='0.5';">
+                Mark as Out for Delivery
+            </a>
+        {% elif o.status == "OUT" %}
+            <a href="{% url 'advance_status' o.id %}" class="swiggy-btn-filled"
+               onclick="this.style.pointerEvents='none'; this.style.opacity='0.5';">
+                Mark as Delivered
+            </a>
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+    <div class="swiggy-empty">
+        <h2>📭 No Orders Assigned</h2>
+        <p>You have no deliveries right now.</p>
+    </div>
+{% endif %}
+
+</div>
+
+<div class="swiggy-bottom-nav">
+    <a href="{% url 'home' %}" class="swiggy-nav-item"><span>🏠</span>Home</a>
+    <a href="{% url 'available_orders' %}" class="swiggy-nav-item"><span>📋</span>Available</a>
+    <a href="{% url 'delivery_orders' %}" class="swiggy-nav-item active"><span>🚚</span>Deliveries</a>
+    <a href="{% url 'logout' %}" class="swiggy-nav-item"><span>🚪</span>Logout</a>
+</div>
+
+</body>
+</html>
